@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic List using Vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+    <div id="app" class="bg-white p-6 rounded-lg shadow-lg text-center w-fit">
+        <h2 class="font-bold text-2xl mb-4">Dynamic List</h2>
+
+        <ul v-list="items" class="list-disc pl-5"></ul>
+    </div>
+
+    <script>
+        Vue.directive('list', {
+            bind(el, binding, vnode) {
+                function updateList() {
+                    el.innerHTML = ""; 
+                    const ul = document.createElement("ul");
+                    ul.classList.add("list-disc", "pl-5");
+
+                    binding.value.forEach((element, index) => {
+                        const li = document.createElement("li");
+                        li.classList.add("flex", "justify-between", "items-center", "p-2");
+
+                        const text = document.createElement("span");
+                        text.textContent = element;
+
+                        const btn = document.createElement("button");
+                        btn.textContent = "Remove";
+                        btn.classList.add("ml-4", "px-2", "py-1", "bg-blue-500", "text-white", "rounded", "hover:bg-red-700");
+
+                        btn.addEventListener("click", () => {
+                            vnode.context.items.splice(index, 1);
+                        });
+
+                        li.appendChild(text);
+                        li.appendChild(btn);
+                        ul.appendChild(li);
+                    });
+
+                    el.appendChild(ul);
+                }
+
+                updateList();
+                vnode.context.$watch("items", updateList, { deep: true });
+            }
+        });
+
+        new Vue({
+            el: "#app",
+            data: {
+                items: ["Item 1", "Item 2", "Item 3", "Item 4"] 
+            }
+        });
+    </script>
+</body>
+</html>

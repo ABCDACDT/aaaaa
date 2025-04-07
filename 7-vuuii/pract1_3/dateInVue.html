@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show date in human readable format</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+  </head>
+  <body>
+    <div id="app">
+        <h1 class="text-2xl font-bold text-center m-4 font-bold">Here date will be shown in human readable format</h1>
+      <p class="m-4 border-2 shadow-xl bg-blue-100 text-center" v-format-date="date">DATE IS : </p>
+    </div>
+  </body>
+
+  <script>
+    Vue.directive("format-date", {
+      inserted: function (el, binding) {
+        const date = binding.value;
+
+        const formatte_date = formatDate(date);
+        el.textContent = el.textContent+formatte_date;
+      },
+    });
+
+    new Vue({
+      el: "#app",
+      data: {
+        date: "2025-03-16T12:00:00",
+      },
+    });
+
+    function formatDate(dateString) {
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return new Date(dateString).toLocaleDateString("en-US", options);
+    }
+  </script>
+</html>

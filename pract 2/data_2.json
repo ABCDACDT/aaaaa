@@ -1,0 +1,15 @@
+{
+  "s1": {
+    "name": "nigam",
+    "age": 21,
+    "college": "Nirma"
+  },
+  "s2": {
+    "s2_1" : {
+      "height": "7ft"
+    },
+    "name": "xyz",
+    "age": 200,
+    "college": "LD"
+  }
+}

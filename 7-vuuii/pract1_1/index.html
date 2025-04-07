@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <p v-uppercase>clk me to change</p>
+    </div> 
+
+    <script>
+        Vue.directive('uppercase',{
+            bind(el){
+                el.style.cursor = 'pointer';
+                el.addEventListener('click', () => {
+                    const text = el.innerText;
+                    el.innerText = text.toUpperCase();
+                });
+            }
+        });
+        new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+</html>
